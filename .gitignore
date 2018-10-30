@@ -1,0 +1,8 @@
+#ignore .vscode debug folder
+.vscode/
+
+#ignore executable minifirewall
+minifirewall/minifirewall
+
+#ignore object files
+*.o
