@@ -1,5 +1,9 @@
 #include <argp.h>
 
+const char *argp_program_version;
+
+const char *argp_program_bug_address;
+
 /*
    Description of non-option arguments
 */
@@ -13,8 +17,9 @@ static char doc[] = "MINIX3 Firewall command line tool";
 /*
    the argp structure--for use in main.
 */
-
 extern struct argp_option options[];
+
+enum parser_opts;
 
 error_t parse_opt (int key, char *arg, struct argp_state *state);
 

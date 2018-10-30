@@ -17,15 +17,26 @@ int main(int argc, char **argv)
     arguments.del = 0;
     argp_parse (&argp, argc, argv, 0, 0, &arguments);
 
+    //print rules
     if (arguments.print){
         printf("print\n");
+
+        /*
+        TODO
+        */
     }
 
+    //delete a rule
     if (arguments.del){
         int delete = atoi(arguments.del);
         printf("deleting rule: %d\n", delete);
+
+        /*
+        TODO
+        */
     }
 
+    //add a rule
     if (arguments.in){
         printf("--in\n");
 

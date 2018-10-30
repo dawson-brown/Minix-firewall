@@ -1,16 +1,44 @@
 #include "parser.h"
 
+const char *argp_program_version = "argex 1.0";
+
+const char *argp_program_bug_address = "<bug-gnu-utils@gnu.org>";
+
+enum parser_opts {
+    //add rule
+    opt_in = 0x100,
+    in_group = 0,
+
+    //rules
+    opt_proto = 0x110,
+    opt_srcip = 0x130,
+    opt_destip = 0x140,
+    opt_srcnetmask = 0x150,
+    opt_destport = 0x160,
+    rule_group = 1,
+
+    //action
+    opt_action = 0x170,
+    action_group = 2,
+
+    opt_print = 0x180,
+    print_group = 4,
+
+    opt_delete = 0x190,
+    delete_group = 3
+};
+
 struct argp_option options[] =
 {
-    {"in", 0x100, 0, 0, "Add a rule", 0},
-    {"proto", 0x200, "ALL/TCP/UDP/ICMP", 0, "Add protocol to the rule.", 1},
-    {"srcip", 0x300, "valid IP", 0, "Add a source IP address to the rule.", 1},
-    {"destip", 0x400, "valid IP", 0, "Add a destination IP address to the rule.", 1},
-    {"srcnetmask", 0x500, "valid netmask", 0, "Add a source netmask to the rule.", 1},
-    {"destport", 0x600, "valid port number", 0, "Add a destination port number to the rule.", 1},
-    {"action", 0x700, "BLOCK/UNBLOCK", 0, "The action to take on packets that match the given rule.", 1},
-    {"print", 0x800, 0, 0, "Print the rules.", 3},
-    {"delete", 0x900, "rule number", 0, "Delete the given rule.", 2},
+    {"in", opt_in, 0, 0, "Add a rule", in_group},
+    {"proto", opt_proto, "ALL/TCP/UDP/ICMP", 0, "Add protocol to the rule.", rule_group},
+    {"srcip", opt_srcip, "valid IP", 0, "Add a source IP address to the rule.", rule_group},
+    {"destip", opt_destip, "valid IP", 0, "Add a destination IP address to the rule.", rule_group},
+    {"srcnetmask", opt_srcnetmask, "valid netmask", 0, "Add a source netmask to the rule.", rule_group},
+    {"destport", opt_destport, "valid port number", 0, "Add a destination port number to the rule.", rule_group},
+    {"action", opt_action, "BLOCK/UNBLOCK", 0, "The action to take on packets that match the given rule.", action_group},
+    {"print", opt_print, 0, 0, "Print the rules.", print_group},
+    {"delete", opt_delete, "rule number", 0, "Delete the given rule.", delete_group},
     {0}
 };
 
@@ -20,31 +48,31 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
 
     switch (key)
         {
-        case 0x100: //--in
+        case opt_in: //--in
             arguments->in = 1;
             break;
-        case 0x200: //protocal
+        case opt_proto: //protocal
             arguments->proto = arg;
             break;
-        case 0x300: //source Ip
+        case opt_srcip: //source Ip
             arguments->srcip = arg;
             break;
-        case 0x400: //destination IP
+        case opt_destip: //destination IP
             arguments->destip = arg;
             break;
-        case 0x500: //source netmask
+        case opt_srcnetmask: //source netmask
             arguments->srcnetmask = arg;
             break;
-        case 0x600: //port number
+        case opt_destport: //port number
             arguments->port = arg;
             break;
-        case 0x700: //action
+        case opt_action: //action
             arguments->action = arg;
             break;
-        case 0x800: //print
+        case opt_print: //print
             arguments->print = 1;
             break;
-        case 0x900: //delete
+        case opt_delete: //delete
             arguments->del = arg;
             break;
         default:
