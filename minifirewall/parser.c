@@ -7,7 +7,8 @@ const char *argp_program_bug_address = "<bug-gnu-utils@gnu.org>";
 enum parser_opts {
     //add rule
     opt_in = 0x100,
-    in_group = 0,
+    opt_out = 0x101,
+    dir_group = 0,
 
     //rules
     opt_proto = 0x110,
@@ -30,7 +31,8 @@ enum parser_opts {
 
 struct argp_option options[] =
 {
-    {"in", opt_in, 0, 0, "Add a rule", in_group},
+    {"in", opt_in, 0, 0, "Add a rule for incoming packets", dir_group},
+    {"out", opt_out, 0, 0, "Add a rule for outgoing packets", dir_group},
     {"proto", opt_proto, "ALL/TCP/UDP/ICMP", 0, "Add protocol to the rule.", rule_group},
     {"srcip", opt_srcip, "valid IP", 0, "Add a source IP address to the rule.", rule_group},
     {"destip", opt_destip, "valid IP", 0, "Add a destination IP address to the rule.", rule_group},
@@ -50,6 +52,9 @@ error_t parse_opt (int key, char *arg, struct argp_state *state)
         {
         case opt_in: //--in
             arguments->in = 1;
+            break;
+        case opt_out:
+            arguments->out = 1;
             break;
         case opt_proto: //protocal
             arguments->proto = arg;

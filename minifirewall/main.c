@@ -7,6 +7,7 @@ int main(int argc, char **argv)
 {
     struct arguments arguments;
     arguments.in = 0;
+    arguments.out = 0;
     arguments.proto = NULL;
     arguments.srcip = NULL;
     arguments.destip = NULL;
@@ -39,6 +40,14 @@ int main(int argc, char **argv)
     //add a rule
     if (arguments.in){
         printf("--in\n");
+
+        /*
+        TODO
+        */
+
+    }
+    if (arguments.out){
+        printf("--out\n");
 
         /*
         TODO

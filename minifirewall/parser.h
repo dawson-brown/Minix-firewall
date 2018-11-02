@@ -28,6 +28,7 @@ static struct argp argp = {options, parse_opt, args_doc, doc};
 struct arguments
 {                   
     int in;            /* --in - action to add rule */
+    int out;
     char *proto;        /* --proto - the  protocol of the packet (ALL, TCP, UDP. ICMP)*/
     char *srcip;           /* --srcip - the source IP of the packet */
     char *destip;        /* --destip - the destination IP of the packet */
